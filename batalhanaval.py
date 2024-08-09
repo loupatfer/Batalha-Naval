@@ -3,7 +3,7 @@ import random
 nomes_barcos = ["Carrier", "Battleship", "Fragate", "Submarine", "Destroyer"]
 #Tamanho por ordem de nome: 5,4,3,3,2
 tamanho_barcos = {"Carrier": 5, "Battleship": 4, "Fragate": 3, "Submarine": 3, "Destroyer": 2}
-pontos_barcos = {"Carrier": 100, "Battleship": 80, "Fragate": 60, "Submarine": 60, "Destroyer": 40}
+pontos_barcos = {"C": 100, "B": 80, "F": 60, "S": 60, "D": 40}
 
 def obter_tamanho_barco(nome):
     return tamanho_barcos.get(nome, 0)
@@ -97,7 +97,7 @@ def coloca_barco_aleatorio(campo, campo_ocupados, nome):
                     campo[row][col + i] = nome[0]
             return
         
-def atacar(campo_oponente, campo_visivel, row, col, pontuacao):
+def atacar(campo_oponente, campo_visivel, row, col, pontuacao_jogador):
     if campo_visivel[row][col] != "_":
         print("Esta coordenada já foi atacada")
         return False
@@ -111,7 +111,7 @@ def atacar(campo_oponente, campo_visivel, row, col, pontuacao):
         if not any(barco_acertado == campo_oponente[r][c] for r in range(tamanho_mapa) for c in range(tamanho_mapa)):
             for nome, inicial in zip(nome_barcos, [n[0] for n in nome_barcos]):
                 if inicial == barco_acertado:
-                    pontuacao += obter_pontos_barco(nome)
+                    pontuacao_jogador += obter_pontos_barco(nome)
                     print(f"Destruíste um {nome}! Ganhou {obter_pontos_barco(nome)} pontos!")
                     break
     else:
